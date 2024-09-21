@@ -9,7 +9,7 @@ import {
 export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:3000"
+        baseUrl: "https://certificate-management-system-backend.vercel.app"
     }),
     endpoints: (builder) => ({
         login: builder.mutation({

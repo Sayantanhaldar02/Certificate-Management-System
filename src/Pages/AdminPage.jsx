@@ -8,7 +8,7 @@ import Certificate_table from '../Components/Admin/Certificate_table/Certificate
 const AdminPage = () => {
 
   return (
-    <div className="h-screen  px-10">
+    <div className=" min-h-[100vh]  px-10 mb-10">
       <Typography variant="h3" component="h1" className="text-center mb-6 text-blue-800">
         Admin Dashboard
       </Typography>

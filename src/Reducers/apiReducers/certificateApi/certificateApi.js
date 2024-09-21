@@ -7,7 +7,7 @@ import {
 } from "../../certificateReducers/certificateReducer";
 export const certificateApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:3000/certificate",
+        baseUrl: "https://certificate-management-system-backend.vercel.app/certificate",
         prepareHeaders: (headers, {
             getState
         }) => {
@@ -50,7 +50,7 @@ export const certificateApi = createApi({
         }),
         createCertificates: builder.mutation({
             query: (data) => ({
-                url: "/create-certificate",
+                url: "/upload-certificate",
                 method: "POST",
                 body: data,
             }),

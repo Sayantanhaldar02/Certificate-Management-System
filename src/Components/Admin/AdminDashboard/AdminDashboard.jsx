@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, CardContent, Typography, CircularProgress } from '@mui/material';
 import { UploadFile } from '@mui/icons-material';
 import axios from 'axios';
-import {validateFile} from '../../../Service/FileValidationService/FileValidationService';
+import { validateFile } from '../../../Service/FileValidationService/FileValidationService';
 import { toast } from 'react-toastify';
+import { useCreateCertificatesMutation } from '../../../Reducers/apiReducers/certificateApi/certificateApi';
 
 const AdminDashboard = () => {
   const [file, setFile] = useState(null);
@@ -12,18 +13,18 @@ const AdminDashboard = () => {
   const [uploadStatus, setUploadStatus] = useState('');
 
   const handleFileChange = (e) => {
-    if(e.target.files && e.target.files.length>0){
+    if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
       setfileName(e.target.files[0].name)
     }
     const validate = validateFile(e.target.files[0])
-    if(!validate.valid){
+    if (!validate.valid) {
       toast.error("Upload an excel file!!")
     }
   };
 
 
-
+  const [create_certificate, create_response] = useCreateCertificatesMutation()
   const handleUpload = async () => {
     if (!file) {
       setUploadStatus('Please select a file to upload.');
@@ -35,7 +36,22 @@ const AdminDashboard = () => {
 
     const formData = new FormData();
     formData.append('file', file);
+
+    await create_certificate(formData);
   };
+
+  useEffect(() => {
+    if (create_response.isSuccess) {
+      setUploading(false);
+      setfileName("")
+      toast.success("Certificate uploaded successfully");
+    }
+
+    if (create_response.isError) {
+      setUploading(false);
+      toast.error("Failed to upload certificate");
+    }
+  }, [create_response.isSuccess, create_response.isError])
 
   return (
     <div className=" p-6">

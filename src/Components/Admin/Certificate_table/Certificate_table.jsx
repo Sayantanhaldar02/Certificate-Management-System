@@ -48,49 +48,51 @@ const Certificate_table = (props) => {
 
     return (
         <>
-            <TableContainer component={Paper} className='border-2 border-primary-color max-h-[500px] myTable'>
-                <Table stickyHeader aria-label="sticky table" >
-                    <TableHead >
-                        <TableRow className='border-b-2 border-green-400 text-center'>
-                            <TableCell style={{ borderBottom: '2px solid #fd715d' }}><strong>Sl. No</strong></TableCell>
-                            <TableCell style={{ borderBottom: '2px solid #fd715d' }}><strong>Certificate ID</strong></TableCell>
-                            <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Student Name</strong></TableCell>
-                            <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Internship Domain</strong></TableCell>
-                            <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Starting Date</strong></TableCell>
-                            <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Ending Date</strong></TableCell>
-                            <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Update</strong></TableCell>
-                            <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Delete</strong></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    {
-                        isLoading ?
-                            <>
-                                <div className='w-full'>
-                                    <Animations />
-                                </div>
-                            </> :
-                            <>
-                                <TableBody>
-                                    {
-                                        allCertificates && allCertificates
-                                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                            .sort((a, b) => new Date(b.createdAt).getMilliseconds() - new Date(a.createdAt).getMilliseconds())
-                                            .map((certificate, index) => (<Table_body key={certificate._id} certificate={certificate} index={index} handelDelete={handelDelete} />))
-                                    }
-                                </TableBody>
-                            </>
-                    }
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={allCertificates ? allCertificates.length : 0}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            <div className='pb-10'>
+                <TableContainer component={Paper} className='border-2 border-primary-color max-h-[500px] myTable'>
+                    <Table stickyHeader aria-label="sticky table" >
+                        <TableHead >
+                            <TableRow className='border-b-2 border-green-400 text-center'>
+                                <TableCell style={{ borderBottom: '2px solid #fd715d' }}><strong>Sl. No</strong></TableCell>
+                                <TableCell style={{ borderBottom: '2px solid #fd715d' }}><strong>Certificate ID</strong></TableCell>
+                                <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Student Name</strong></TableCell>
+                                <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Internship Domain</strong></TableCell>
+                                <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Starting Date</strong></TableCell>
+                                <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Ending Date</strong></TableCell>
+                                <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Update</strong></TableCell>
+                                <TableCell style={{ borderBottom: '2px solid #fd715d' }} align='center'><strong>Delete</strong></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        {
+                            isLoading ?
+                                <>
+                                    <div className='w-full'>
+                                        <Animations />
+                                    </div>
+                                </> :
+                                <>
+                                    <TableBody>
+                                        {
+                                            allCertificates && allCertificates
+                                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                .sort((a, b) => new Date(b.createdAt).getMilliseconds() - new Date(a.createdAt).getMilliseconds())
+                                                .map((certificate, index) => (<Table_body key={certificate._id} certificate={certificate} index={index} handelDelete={handelDelete} />))
+                                        }
+                                    </TableBody>
+                                </>
+                        }
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={allCertificates ? allCertificates.length : 0}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </div>
         </>
     )
 }
